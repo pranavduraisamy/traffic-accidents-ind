@@ -16,11 +16,12 @@ import fire
 
 from loguru import logger
 
+
 def _export_html_wasm(notebook_path: Path, output_dir: Path) -> bool:
     output_path: Path = notebook_path.with_suffix(".html")
     cmd: List[str] = ["uvx", "marimo", "export", "html-wasm", "--sandbox"]
     logger.info(f"Exporting {notebook_path} to {output_path} as a page")
-    cmd.extend(["--mode", "run", "--no-show-code"]) 
+    cmd.extend(["--mode", "run", "--no-show-code"])
     try:
         output_file: Path = output_dir / notebook_path.with_suffix(".html")
         output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -38,7 +39,12 @@ def _export_html_wasm(notebook_path: Path, output_dir: Path) -> bool:
         return False
 
 
-def _generate_index(output_dir: Path, template_file: Path, notebooks_data: List[dict] | None = None, apps_data: List[dict] | None = None) -> None:
+def _generate_index(
+    output_dir: Path,
+    template_file: Path,
+    notebooks_data: List[dict] | None = None,
+    apps_data: List[dict] | None = None,
+) -> None:
     logger.info("Generating index.html")
     index_path: Path = output_dir / "index.html"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -47,7 +53,7 @@ def _generate_index(output_dir: Path, template_file: Path, notebooks_data: List[
         template_name = template_file.name
         env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(template_dir),
-            autoescape=jinja2.select_autoescape(["html", "xml"])
+            autoescape=jinja2.select_autoescape(["html", "xml"]),
         )
         template = env.get_template(template_name)
         rendered_html = template.render(notebooks=notebooks_data, apps=apps_data)
@@ -71,12 +77,13 @@ def _export(folder: Path, output_dir: Path) -> List[dict]:
         for nb in notebooks
         if _export_html_wasm(nb, output_dir)
     ]
-    logger.info(f"Successfully exported {len(notebook_data)} out of {len(notebooks)} files from {folder}")
+    logger.info(
+        f"Successfully exported {len(notebook_data)} out of {len(notebooks)} files from {folder}"
+    )
     return notebook_data
 
-def main(
-    output_dir: Union[str, Path] = "_site"
-) -> None:
+
+def main(output_dir: Union[str, Path] = "_site") -> None:
     logger.info("Starting marimo build process")
     output_dir: Path = Path(output_dir)
     logger.info(f"Output directory: {output_dir}")
@@ -84,8 +91,13 @@ def main(
     template_file: Path = Path("assets/index.html.j2")
     logger.info(f"Using template file: {template_file}")
     notebooks_data = _export(Path("notebooks"), output_dir)
-    _generate_index(output_dir=output_dir, notebooks_data=notebooks_data, template_file=template_file)
+    _generate_index(
+        output_dir=output_dir,
+        notebooks_data=notebooks_data,
+        template_file=template_file,
+    )
     logger.info(f"Build completed successfully. Output directory: {output_dir}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     fire.Fire(main)
