@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>MEOW MEOW</title>
+    <title>Traffic Accidents in India - Dashboard</title>
     <style>
       body {
         margin: 0;
@@ -46,19 +46,21 @@
   <body class="font-sans text-stone-700 p-5">    
     <div class="max-w-4xl mx-auto">
       <header class="bg-transparent p-6 text-center rounded-lg mb-6">
-        <h1 class="text-2xl text-stone-950 font-bold mb-2">MEOW MEOW</h1>
-        <p class="text-sm" >meow meow meow</p>
+        <h1 class="text-2xl text-stone-950 font-bold mb-2">Traffic Accidents in India</h1>
+        <p class="text-sm" >Data Dashboard | Crafted using Open-Source Tools</p>
         <hr class="h-px my-5 bg-[#78716C] border-0 shadow-md>
       </header>
-
       <main>
         <div class="w-full px-4">
-          <h2 class="text-stone-950 text-xl font-bold text-center my-4">Info</h2>
-          <p class="text-center mb-4">Meow meow meow</p>
+          <h2 class="text-stone-950 text-xl font-bold text-center my-4">Before you begin</h2>
+          <ul class="text-left mb-4 list-disc list-inside pl-5">
+            <li>All the data were sourced from Indian Government publications and webpages manually.</li>
+            <li>To name a few: ADSI report by <a href="https://www.ncrb.gov.in/accidental-deaths-suicides-in-india-adsi.html" class="text-sky-500 hover:underline">NCRB</a>, Road Transport Year Book by <a href="https://morth.nic.in/en/road-transport-year-books" class="text-sky-500 hover:underline">MoRTH</a>, <a href="https://www.data.gov.in/" class="text-sky-500 hover:underline">OGD</a> and <a href="https://censusindia.gov.in/census.website/" class="text-sky-500 hover:underline">Population Census</a>.</li>
+            <li>Meow meow meow</li>
+          </ul>
           <hr class="h-px my-5 bg-[#78716C] border-0 shadow-md>
           <h2 class="text-stone-950 text-xl font-bold text-center my-4"> </h2>
-          <h2 class="text-stone-950 text-xl font-bold text-center my-4">Meow meow</h2>
-
+          <h2 class="text-stone-950 text-xl font-bold text-center my-4">Explore</h2>
           <div class="my-5 grid grid-cols-1 gap-2 md:grid-cols-3 w-full">
           
             <div class="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl rounded-lg w-full">
@@ -113,7 +115,10 @@
       </main>
 
       <footer class="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-600">
-        <p class="mb-2">Built with <a href="https://meow.io"  class="text-blue-500 hover:underline">Meow</a> - meow meow meow meow</p>
+        <p class="mb-2">Built by <a href="https://github.com/pranavduraisamy" class="text-sky-500 hover:underline">Pranav👦🏽</a> -  Last updated on <span id="last-modified"></span></p>
+          <script>
+            document.getElementById("last-modified").textContent=new Date(document.lastModified).toLocaleDateString();
+          </script>
       </footer>
     
     </div>

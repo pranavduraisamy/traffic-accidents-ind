@@ -1,14 +1,14 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "marimo>=0.17.0",
+#     "marimo>=0.18.0",
 #     "pandas==2.3.3"
 # ]
 # ///
 
 import marimo
 
-__generated_with = "0.18.3"
+__generated_with = "0.18.4"
 app = marimo.App(width="medium")
 
 
@@ -99,6 +99,7 @@ def _(attr_select, df, df_options, df_radio, level_radio, mo, year_slider):
     selected_key = list(df_options.keys())[
         list(df_options.values()).index(df_radio.value)
     ]
+    format_mapping = {"Year": "{:.0f}".format}
     filtered_df = (
         df.loc[df["Year"].between(start_year, end_year), ["Year"] + attr_select.value]
         .copy()
@@ -109,6 +110,10 @@ def _(attr_select, df, df_options, df_radio, level_radio, mo, year_slider):
     elif level_radio.value == "State":
         if df_radio.value == "s-regvehicles.csv":
             selected_key += " (in 1000s)"
+        if df_radio.value == "s-motorrate.csv" or df_radio.value == "s-fatal1000v.csv":
+            format_mapping.update(
+                {attr_format: "{:.3f}" for attr_format in attr_select.value}
+            )
         table_title = f"### Statewise {selected_key} from {start_year} to {end_year}"
     mo.ui.table(
         data=filtered_df,
@@ -116,6 +121,8 @@ def _(attr_select, df, df_options, df_radio, level_radio, mo, year_slider):
         label=table_title,
         page_size=25,
         show_column_summaries="chart",
+        freeze_columns_left=["Year"],
+        format_mapping=format_mapping,
     )
     return
 
